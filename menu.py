@@ -14,7 +14,7 @@ USER_CHOICE = '''Enter one of the following
 - 'b' to look at 5-star books
 - 'c' to look at the cheapest books
 - 'n' to just get the next available book on the catalogue
-- 'l' to get the number of books in the catalogue
+- 'l' to get the number of books in the catalogu
 - 'q' to exit
 
 Enter your choice: '''
