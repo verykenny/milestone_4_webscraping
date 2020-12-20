@@ -7,4 +7,4 @@ page = AllBooksPage(page_content)
 print(page_content)
 
 for book in page.books:
-    print(book)
+    print(book.name)
