@@ -36,7 +36,7 @@ class BookParser:
     def link(self):
         locator = BookLocators.LINK_LOCATOR
         item_url = self.parent.select_one(locator).attrs['href']
-        logging.info('URL has been pulled for ' + self.name)
+        logging.info('Retrieving URL')
         return item_url
 
     @property
@@ -47,7 +47,7 @@ class BookParser:
         pattern = '£([0-9]+\.[0-9]+)'
         matcher = re.search(pattern, item_price)
         price = float(matcher.group(1))
-        logging.info('Price has been pulled for ' + self.name)
+        logging.info('Retrieving book price')
         return price
 
     @property
@@ -56,6 +56,6 @@ class BookParser:
         star_rating_element = self.parent.select_one(locator)
         classes = star_rating_element.attrs['class']
         rating_classes = filter(lambda x: x != 'star-rating', classes)
-        logging.info('Rating has been pulled for ' + self.name)
+        logging.info('Retrieving Rating')
         return self.RATINGS[next(rating_classes)]
 

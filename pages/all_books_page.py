@@ -1,3 +1,5 @@
+import logging
+
 from bs4 import BeautifulSoup
 
 
@@ -11,4 +13,5 @@ class AllBooksPage:
 
     @property
     def books(self):
+        logging.info('Parsing books')
         return [BookParser(e) for e in self.soup.select(AllBooksPageLocators.BOOKS)]

@@ -1,14 +1,20 @@
-from app import books
 import logging
 
 
-logging.basicConfig(filename='menu.log', level=logging.DEBUG)
+logging.basicConfig(format = '%(asctime)s %(message)s',
+                    datefmt = '%m/%d/%Y %I:%M:%S %p',
+                    filename = 'example.log',
+                    level=logging.DEBUG)
+
+
+from app import books
 
 USER_CHOICE = '''Enter one of the following
 
 - 'b' to look at 5-star books
 - 'c' to look at the cheapest books
 - 'n' to just get the next available book on the catalogue
+- 'l' to get the number of books in the catalogue
 - 'q' to exit
 
 Enter your choice: '''
@@ -22,7 +28,6 @@ def menu():
         except:
             logging.error('User entered invalid command: ' + user_input)
             print("Please choose a valid command.")
-
         user_input = input(USER_CHOICE).lower()
 
 
@@ -35,13 +40,13 @@ def print_best_books():
     best_books = sorted(books, key=lambda x: x.rating * -1)[:10]
     for book in best_books:
         print(book)
-
+    logging.info("Returned list of top 10 books")
 
 def print_cheapest_books():
     cheapest_books = sorted(books, key=lambda x: x.price)[:10]
     for book in cheapest_books:
         print(book)
-
+    logging.info("Returned list of cheapest books")
 
 '''
 sort by multiple things by doing a tuple
@@ -70,12 +75,18 @@ books_gen = (x for x in books)
 
 def next_book():
     print(next(books_gen))
+    logging.info("Returned next book from list")
+
+
+def book_count():
+    print(len(books))
 
 
 menu_options = {
     'b': print_best_books,
     'c': print_cheapest_books,
     'n': next_book,
+    'l': book_count,
 }
 
 # g = next_book_gen()
