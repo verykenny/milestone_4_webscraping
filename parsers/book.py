@@ -1,4 +1,5 @@
 import re
+import logging
 
 from locators.book_locators import BookLocators
 
@@ -21,19 +22,21 @@ class BookParser:
         self.parent = parent
 
     def __repr__(self):
-        return f'<Book {self.name}, £{self.price}, ({self.rating} stars)>'
+        return f'<Book: {self.name}, £{self.price} ({self.rating} stars)>'
 
 
     @property
     def name(self):
         locator = BookLocators.NAME_LOCATOR
         item_name = self.parent.select_one(locator).attrs['title']
+        logging.info('Book name has been pulled for ' + item_name)
         return item_name
 
     @property
     def link(self):
         locator = BookLocators.LINK_LOCATOR
         item_url = self.parent.select_one(locator).attrs['href']
+        logging.info('URL has been pulled for ' + self.name)
         return item_url
 
     @property
@@ -44,6 +47,7 @@ class BookParser:
         pattern = '£([0-9]+\.[0-9]+)'
         matcher = re.search(pattern, item_price)
         price = float(matcher.group(1))
+        logging.info('Price has been pulled for ' + self.name)
         return price
 
     @property
@@ -52,5 +56,6 @@ class BookParser:
         star_rating_element = self.parent.select_one(locator)
         classes = star_rating_element.attrs['class']
         rating_classes = filter(lambda x: x != 'star-rating', classes)
+        logging.info('Rating has been pulled for ' + self.name)
         return self.RATINGS[next(rating_classes)]
 

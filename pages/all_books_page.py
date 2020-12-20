@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 
+
 from parsers.book import BookParser
 from locators.all_books_page import AllBooksPageLocators
 
