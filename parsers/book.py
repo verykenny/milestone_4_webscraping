@@ -21,7 +21,7 @@ class BookParser:
         self.parent = parent
 
     def __repr__(self):
-        return f'<Book {self.name} {self.price}, ({self.rating} stars)>'
+        return f'<Book {self.name}, £{self.price}, ({self.rating} stars)>'
 
 
     @property
@@ -52,5 +52,5 @@ class BookParser:
         star_rating_element = self.parent.select_one(locator)
         classes = star_rating_element.attrs['class']
         rating_classes = filter(lambda x: x != 'star-rating', classes)
-        return next(rating_classes)
+        return self.RATINGS[next(rating_classes)]
 
